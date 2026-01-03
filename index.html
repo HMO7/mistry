@@ -295,36 +295,6 @@
                     </div>
                 </div>
               <form class="contact-form" id="contactForm">
-                  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
-<script>
-  (function () {
-    emailjs.init("3mS1S_kRhAhUgWoiE");
-  })();
-
-  const form = document.getElementById("contact-form");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    emailjs
-      .sendForm(
-        "service_52v307t",
-        "template_c3p4bfj",
-        this
-      )
-      .then(
-        function () {
-          alert("Message sent successfully!");
-          form.reset();
-        },
-        function (error) {
-          alert("Failed to send message. Please try again.");
-          console.error(error);
-        }
-      );
-  });
-</script>
 
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -339,7 +309,38 @@
                 </form>
             </div>
         </div>
+     
     </section>
+       <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    emailjs.init("3mS1S_kRhAhUgWoiE");
+
+    const form = document.getElementById("contactForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      emailjs.sendForm(
+        "service_52v307t",
+        "template_c3p4bfj",
+        form
+      ).then(
+        function () {
+          alert("Message sent successfully!");
+          form.reset();
+        },
+        function (error) {
+          alert("Failed to send message. Please try again.");
+          console.error("EmailJS Error:", error);
+        }
+      );
+    });
+
+  });
+</script>
 
     <!-- Footer -->
     <footer class="footer">
