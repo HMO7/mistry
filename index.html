@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="MMH Contractor - Masterful House & Business work. Custom furniture, House Renovation and woodwork crafted with precision and passion.">
+    <meta name="theme-color" content="#0a0502">
+    <title>MMH Contractor | Masterful House & Business Work</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="logo.svg" alt="MMH Contractor Logo" style="height: 50px; width: auto;">
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 12h18M3 6h18M3 18h18"/>
+                </svg>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                        <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Masterful House & Business work<br>Built to Last</h1>
+            <p class="hero-subtitle">Custom furniture, House Renovation and woodwork crafted with precision and passion. Where tradition meets modern excellence.</p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn btn-primary">View Our Work</a>
+                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title">Our Work</h2>
+            <p class="section-subtitle">Each piece tells a story of dedication, skill, and timeless beauty</p>
+            
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=1200&q=80');"></div>
+                            <div class="slide-overlay">
+                                <h3>Custom Dining Table</h3>
+                                <p>Handcrafted oak with elegant joinery</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&q=80');"></div>
+                            <div class="slide-overlay">
+                                <h3>Modern Kitchen Cabinets</h3>
+                                <p>Premium materials, flawless finish</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80');"></div>
+                            <div class="slide-overlay">
+                                <h3>Elegant Interior Doors</h3>
+                                <p>Custom design, perfect fit</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80');"></div>
+                            <div class="slide-overlay">
+                                <h3>Luxury Wardrobe</h3>
+                                <p>Spacious design, premium hardware</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1200&q=80');"></div>
+                            <div class="slide-overlay">
+                                <h3>Handcrafted Wooden Seating</h3>
+                                <p>Timeless craftsmanship with strength, comfort, and elegance.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="slide-image" style="background-image: url('https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80');"></div>
+                            <div class="slide-overlay">
+                                <h3>Custom House Renovation</h3>
+                                <p>Transform your home with expert craftsmanship and attention to detail</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-btn-prev" id="prevBtn" aria-label="Previous slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="carousel-btn carousel-btn-next" id="nextBtn" aria-label="Next slide">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">Build with Legacy and Excellence</h2>
+                    <p class="about-description">
+                        With years of dedicated experience, we transform raw materials into timeless pieces that blend functionality with artistry. Every project is approached with meticulous attention to detail, ensuring that each cut, joint, and finish meets our exacting standards.
+                    </p>
+                    <p class="about-description">
+                        We believe in building relationships as strong as our furniture. Your vision becomes our mission, and we work closely with you to bring your ideas to life. From initial consultation to final installation, we're committed to exceeding expectations and delivering work that stands the test of time.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Years Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">100+</div>
+                            <div class="stat-label">Projects Completed</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive woodworking solutions for your home and business</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 3v18"/>
+                        </svg>
+                    </div>
+                    <h3>Custom Furniture</h3>
+                    <p>Bespoke pieces designed to your exact specifications, from dining sets to bedroom collections.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                            <rect x="2" y="3" width="20" height="18" rx="1"/>
+                        </svg>
+                    </div>
+                    <h3>Doors & Cabinets</h3>
+                    <p>Custom doors, kitchen cabinets, and storage solutions crafted for style and durability.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                        </svg>
+                    </div>
+                    <h3>Renovation Work</h3>
+                    <p>Complete woodwork renovations, restorations, and remodeling services for existing spaces.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Quality Materials</h3>
+                    <p>We source only the finest hardwoods and premium materials for lasting quality.</p>
+                </div>
+                
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Skilled Worker</h3>
+                    <p>Experienced professionals with years of expertise delivering quality workmanship on every project.</p>
+                </div>
+                
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3>On-Time Delivery</h3>
+                    <p>We respect your time and deliver projects on schedule, every time.</p>
+                </div>
+                
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                    </div>
+                    <h3>Customer Trust</h3>
+                    <p>Your satisfaction is our priority. We build lasting relationships through exceptional service.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-subtitle">Let's discuss your next project</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>infocontrator@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Gujarat, India</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 MMH Contrator. All rights reserved.</p>
+            <p>Made by: Shashwattech</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
