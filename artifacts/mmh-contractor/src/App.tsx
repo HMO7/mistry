@@ -202,31 +202,38 @@ function Hero() {
       <div className="hero-vignette" />
 
       <div className="container">
-        <span className="hero-eyebrow fade-up">Your Complete Home Solution</span>
-        <h1 className="fade-up-2">
-          Perfectly
-          <span className="gold-word">Built.</span>
-        </h1>
-        <div className="hero-bottom fade-up-3">
-          <div>
-            <p className="hero-desc">
-              From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
-            </p>
-            <div className="hero-actions">
-              <button className="btn-primary" onClick={() => scrollTo("contact")}>
-                Get Free Quote <Icon.Arrow />
-              </button>
-              <button className="btn-outline" onClick={() => scrollTo("gallery")}>
-                View Our Work
-              </button>
+        {/* heading layer — sits BEHIND the image */}
+        <div className="hero-heading-wrap">
+          <span className="hero-eyebrow fade-up">Your Complete Home Solution</span>
+          <h1 className="fade-up-2">
+            Perfectly
+            <span className="gold-word">Built.</span>
+          </h1>
+        </div>
+
+        {/* bottom bar — sits IN FRONT of the image */}
+        <div className="hero-bottom-wrap">
+          <div className="hero-bottom fade-up-3">
+            <div>
+              <p className="hero-desc">
+                From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
+              </p>
+              <div className="hero-actions">
+                <button className="btn-primary" onClick={() => scrollTo("contact")}>
+                  Get Free Quote <Icon.Arrow />
+                </button>
+                <button className="btn-outline" onClick={() => scrollTo("gallery")}>
+                  View Our Work
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="hero-stats">
-            <div className="hero-stat"><strong>30+</strong><span>Years Experience</span></div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
+            <div className="hero-stats">
+              <div className="hero-stat"><strong>30+</strong><span>Years Experience</span></div>
+              <div className="hero-stat-divider" />
+              <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
+              <div className="hero-stat-divider" />
+              <div className="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
+            </div>
           </div>
         </div>
       </div>

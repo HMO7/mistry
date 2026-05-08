@@ -94,28 +94,37 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 7rem 0 5rem;
 }
 
-/* floating room image on the right — black bg blends away with lighten */
+/* floating room image — sits IN FRONT of the heading text */
 .hero-room {
   position: absolute;
-  right: -4%; top: 50%;
+  right: -2%; top: 50%;
   transform: translateY(-50%);
-  width: 60%;
-  z-index: 1;
-  mix-blend-mode: lighten;
+  width: 62%;
+  z-index: 3;          /* above heading, below CTAs */
+  mix-blend-mode: lighten;   /* black bg disappears */
   pointer-events: none;
-  opacity: 0.92;
 }
 .hero-room img { width: 100%; height: auto; display: block; }
 
-/* subtle left-side dark vignette so left text stays readable */
+/* left vignette keeps text readable */
 .hero-vignette {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to right, #0c0e17 30%, transparent 65%);
+  background: linear-gradient(to right, #0c0e17 28%, transparent 60%);
   pointer-events: none;
 }
 
 .hero .container {
   position: relative; z-index: 2; width: 100%;
+}
+
+/* heading sits BEHIND the image */
+.hero-heading-wrap {
+  position: relative; z-index: 1;
+}
+
+/* bottom bar (desc + actions + stats) sits IN FRONT of the image */
+.hero-bottom-wrap {
+  position: relative; z-index: 4;
 }
 
 .hero-eyebrow {
