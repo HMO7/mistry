@@ -183,11 +183,11 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 1;
 }
 
-/* ── "BUILT." — absolutely pinned over bottom of room image ── */
+/* ── "BUILT." — sits just below "PERFECTLY", in front of image ── */
 .hero-bottom-wrap {
   position: absolute;
   left: 0; right: 0;
-  bottom: 16%;
+  top: calc(50% + 9vw);
   z-index: 4;
   padding: 0 var(--container-pad, 1.5rem);
 }
