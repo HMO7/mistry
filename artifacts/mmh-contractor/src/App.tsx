@@ -194,12 +194,17 @@ function Hero() {
 
   return (
     <section className="hero" id="home">
-      <div className="hero-bg" />
-      <div className="hero-overlay" />
+      {/* floating room — black bg disappears via mix-blend-mode: lighten */}
+      <div className="hero-room">
+        <img src="/room-living.png" alt="Modern living room renovation" />
+      </div>
+      {/* left vignette keeps text readable */}
+      <div className="hero-vignette" />
+
       <div className="container">
         <span className="hero-eyebrow fade-up">Your Complete Home Solution</span>
         <h1 className="fade-up-2">
-          Perfectly<br />
+          Perfectly
           <span className="gold-word">Built.</span>
         </h1>
         <div className="hero-bottom fade-up-3">
@@ -207,7 +212,7 @@ function Hero() {
             <p className="hero-desc">
               From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
             </p>
-            <div className="hero-actions" style={{ marginTop: "1.5rem" }}>
+            <div className="hero-actions">
               <button className="btn-primary" onClick={() => scrollTo("contact")}>
                 Get Free Quote <Icon.Arrow />
               </button>
@@ -218,7 +223,9 @@ function Hero() {
           </div>
           <div className="hero-stats">
             <div className="hero-stat"><strong>30+</strong><span>Years Experience</span></div>
+            <div className="hero-stat-divider" />
             <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
+            <div className="hero-stat-divider" />
             <div className="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
           </div>
         </div>
