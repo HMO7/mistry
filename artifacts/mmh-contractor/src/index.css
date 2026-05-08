@@ -175,7 +175,8 @@ img { max-width: 100%; height: auto; display: block; }
   top: 50%;
   padding-top: 1.5vw;
   z-index: 4;
-  text-align: center;
+  text-align: left;
+  padding-left: 8.5vw;
 }
 
 .hero-sub-word {
