@@ -217,33 +217,16 @@ function Hero() {
         {/* bottom section — in front of room */}
         <div className="hero-bottom-wrap">
           <div className="hero-sub-word fade-up-2">Built.</div>
-          <div className="hero-bottom fade-up-3">
-            <div>
-              <p className="hero-desc">
-                Every home service under one roof — carpentry, plumbing, electrical, full renovation &amp; more. 30+ years of craftsmanship in Gujarat.
-              </p>
-              <div className="hero-actions">
-                <button className="btn-primary" onClick={() => scrollTo("contact")}>
-                  Get Free Quote <Icon.Arrow />
-                </button>
-                <button className="btn-outline" onClick={() => scrollTo("gallery")}>
-                  Explore Work
-                </button>
-              </div>
-            </div>
-            <div className="hero-stats">
-              <div className="hero-stat"><strong>30+</strong><span>Years</span></div>
-              <div className="hero-stat-divider" />
-              <div className="hero-stat"><strong>500+</strong><span>Projects</span></div>
-              <div className="hero-stat-divider" />
-              <div className="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
-            </div>
+          <div className="hero-cta-row fade-up-3">
+            <button className="btn-primary" onClick={() => scrollTo("contact")}>
+              Get Free Quote <Icon.Arrow />
+            </button>
+            <button className="btn-outline" onClick={() => scrollTo("gallery")}>
+              Explore Work
+            </button>
           </div>
         </div>
       </div>
-
-      {/* vertical brand text — right edge */}
-      <div className="hero-vertical">MMH Contractor · Gujarat, India</div>
 
       {/* bottom dot indicators */}
       <div className="hero-indicators">
@@ -252,6 +235,41 @@ function Hero() {
         <div className="hero-dot" />
       </div>
     </section>
+  );
+}
+
+// ── SOCIAL PROOF STRIP ───────────────────────────────────────────────────────
+function ProofStrip() {
+  return (
+    <div className="proof-strip">
+      <div className="container proof-strip-inner">
+        <div className="proof-left">
+          <p className="proof-text">
+            Every home service under one roof — carpentry, plumbing, electrical, full renovation &amp; more. 30+ years of trusted craftsmanship in Gujarat, India.
+          </p>
+          <span className="proof-location">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            MMH Contractor · Gujarat, India
+          </span>
+        </div>
+        <div className="proof-stats">
+          <div className="proof-stat">
+            <strong>30+</strong>
+            <span>Years Experience</span>
+          </div>
+          <div className="proof-divider" />
+          <div className="proof-stat">
+            <strong>500+</strong>
+            <span>Projects Done</span>
+          </div>
+          <div className="proof-divider" />
+          <div className="proof-stat">
+            <strong>98%</strong>
+            <span>Satisfaction</span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -601,6 +619,7 @@ export default function App() {
     <>
       <Navbar />
       <Hero />
+      <ProofStrip />
       <Services />
       <Gallery />
       <Process />
