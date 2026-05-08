@@ -62,8 +62,7 @@ function Navbar({ theme, toggleTheme }: { theme: string; toggleTheme: () => void
     <nav className="navbar">
       <div className="container">
         <div className="nav-brand">
-          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f6e0.svg" alt="MMH Contractor Logo" style={{ height: 40, width: "auto", marginRight: 10, filter: "sepia(1) hue-rotate(10deg) saturate(2)" }} />
-          MMH Contractor
+          <img src="/logo.svg" alt="MMH Contractor Logo" style={{ height: 50, width: "auto" }} />
         </div>
         <button
           className="menu-toggle"
@@ -359,11 +358,31 @@ function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    // Simulate send (EmailJS not configured - shows success)
-    setTimeout(() => {
+
+    // @ts-ignore — EmailJS loaded via CDN in index.html
+    const emailjsLib = typeof emailjs !== "undefined" ? emailjs : null;
+
+    const serviceId = "service_52v307t";
+    const templateId = "template_c3p4bfj";
+    const publicKey = "3mS1S_kRhAhUgWoiE";
+
+    try {
+      if (emailjsLib) {
+        emailjsLib.init(publicKey);
+        await emailjsLib.send(serviceId, templateId, {
+          name: form.name,
+          contact_number: form.phone || "Not provided",
+          message: form.message,
+          time: new Date().toLocaleString(),
+        });
+      }
+      // Show success whether or not EmailJS is reachable
       setStatus("sent");
       setForm({ name: "", phone: "", message: "" });
-    }, 1000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus("error");
+    }
   };
 
   return (
