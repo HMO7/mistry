@@ -1,348 +1,420 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./index.css";
 
-const slides = [
+// ── ICONS ───────────────────────────────────────────────────────────────────
+const Icon = {
+  Carpenter: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M3 17l4-8 4 4 4-6 4 10"/><path d="M3 21h18"/>
+    </svg>
+  ),
+  Plumbing: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M12 2v6m0 0C8.686 8 6 10.686 6 14h12c0-3.314-2.686-6-6-6z"/>
+      <path d="M6 14v4a2 2 0 004 0v-4M14 14v4a2 2 0 004 0v-4"/>
+    </svg>
+  ),
+  Electric: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+  ),
+  Renovation: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+  ),
+  Aluminium: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+      <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+    </svg>
+  ),
+  Painting: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M2 13.5V19a2 2 0 002 2h16a2 2 0 002-2v-5.5"/><path d="M12 2L2 7l10 5 10-5-10-5z"/>
+    </svg>
+  ),
+  Menu: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="24" height="24">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  ),
+  X: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="24" height="24">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  ),
+  Arrow: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  ),
+  Phone: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.19 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15v1.92z"/>
+    </svg>
+  ),
+  Mail: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </svg>
+  ),
+  Pin: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+  ),
+  Check: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="16" height="16">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  ),
+};
+
+// ── SERVICES DATA ────────────────────────────────────────────────────────────
+const SERVICES = [
   {
-    image: "https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=1200&q=80",
-    title: "Custom Dining Table",
-    desc: "Handcrafted oak with elegant joinery",
+    icon: <Icon.Carpenter />, title: "Carpentry & Woodwork",
+    desc: "Custom furniture, cabinets, doors, wardrobes & all woodwork crafted to perfection.",
+    tags: ["Furniture", "Cabinets", "Doors", "Wardrobes"],
+    color: "#8B6F47",
   },
   {
-    image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&q=80",
-    title: "Modern Kitchen Cabinets",
-    desc: "Premium materials, flawless finish",
+    icon: <Icon.Plumbing />, title: "Plumbing",
+    desc: "Full plumbing installations, pipe fitting, bathroom fixtures & leak repairs.",
+    tags: ["Pipe Fitting", "Fixtures", "Repairs", "New Setup"],
+    color: "#3B82F6",
   },
   {
-    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80",
-    title: "Elegant Interior Doors",
-    desc: "Custom design, perfect fit",
+    icon: <Icon.Electric />, title: "Electrical",
+    desc: "Safe electrical wiring, panel upgrades, lighting setup & smart home integration.",
+    tags: ["Wiring", "Lighting", "Panels", "Smart Home"],
+    color: "#F59E0B",
   },
   {
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80",
-    title: "Luxury Wardrobe",
-    desc: "Spacious design, premium hardware",
+    icon: <Icon.Renovation />, title: "Full Renovation",
+    desc: "Complete home renovation from planning to finishing — kitchens, baths & interiors.",
+    tags: ["Interior", "Kitchen", "Bathroom", "Full Home"],
+    color: "#10B981",
   },
   {
-    image: "https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=1200&q=80",
-    title: "Handcrafted Wooden Seating",
-    desc: "Timeless craftsmanship with strength, comfort, and elegance.",
+    icon: <Icon.Aluminium />, title: "Aluminium Work",
+    desc: "Aluminium doors, windows, partitions, railings & structural fabrication.",
+    tags: ["Windows", "Doors", "Railings", "Partitions"],
+    color: "#6366F1",
   },
   {
-    image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=1200&q=80",
-    title: "Custom House Renovation",
-    desc: "Transform your home with expert craftsmanship and attention to detail",
+    icon: <Icon.Painting />, title: "Painting & Finishing",
+    desc: "Professional interior & exterior painting, wall textures and fine finishing.",
+    tags: ["Interior", "Exterior", "Texture", "Polishing"],
+    color: "#EC4899",
   },
 ];
 
-function Navbar({ theme, toggleTheme }: { theme: string; toggleTheme: () => void }) {
+// ── GALLERY DATA ─────────────────────────────────────────────────────────────
+const GALLERY = [
+  { src: "/room-kitchen.png", title: "Modern Kitchen Renovation", cat: "Renovation", label: "Renovation" },
+  { src: "/room-living.png", title: "Living Room Transformation", cat: "Renovation", label: "Interior" },
+  { src: "/room-bathroom.png", title: "Luxury Bathroom Design", cat: "Plumbing", label: "Plumbing" },
+  { src: "/room-office.png", title: "Custom Home Office", cat: "Carpentry", label: "Carpentry" },
+  { src: "/room-theater.png", title: "Home Theater Setup", cat: "Electrical", label: "Electrical" },
+  { src: "/room-kids.png", title: "Kids Room Complete Build", cat: "Renovation", label: "Full Reno" },
+  { src: "/room-zen.png", title: "Zen Relaxation Room", cat: "Renovation", label: "Interior" },
+];
+
+const FILTERS = ["All", "Renovation", "Carpentry", "Plumbing", "Electrical"];
+
+// ── NAVBAR ───────────────────────────────────────────────────────────────────
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const offset = el.offsetTop - 80;
-      window.scrollTo({ top: offset, behavior: "smooth" });
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
   };
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      const nav = document.getElementById("navMenu");
-      const toggle = document.getElementById("menuToggle");
-      if (nav && toggle && !nav.contains(e.target as Node) && !toggle.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
+  const links = [
+    { label: "Services", id: "services" },
+    { label: "Our Work", id: "gallery" },
+    { label: "About", id: "about" },
+    { label: "Contact", id: "contact" },
+  ];
 
   return (
-    <nav className="navbar">
-      <div className="container">
-        <div className="nav-brand">
-          <img src="/logo.svg" alt="MMH Contractor Logo" style={{ height: 50, width: "auto" }} />
-        </div>
-        <button
-          className="menu-toggle"
-          id="menuToggle"
-          aria-label="Toggle menu"
-          onClick={() => setMenuOpen((o) => !o)}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 12h18M3 6h18M3 18h18" />
-          </svg>
-        </button>
-        <ul className={`nav-menu${menuOpen ? " active" : ""}`} id="navMenu">
-          {["home", "gallery", "about", "services", "contact"].map((id) => (
-            <li key={id}>
-              <a onClick={() => scrollTo(id)} style={{ textTransform: "capitalize" }}>{id}</a>
+    <>
+      <nav className={`navbar${scrolled ? " scrolled" : ""}`}>
+        <div className="container">
+          <a className="nav-logo">
+            <img src="/logo.svg" alt="MMH" />
+            MMH <span>Contractor</span>
+          </a>
+          <ul className="nav-links">
+            {links.map((l) => (
+              <li key={l.id}>
+                <a onClick={() => scrollTo(l.id)}>{l.label}</a>
+              </li>
+            ))}
+            <li>
+              <a className="nav-cta" onClick={() => scrollTo("contact")}>
+                Get a Quote
+              </a>
             </li>
-          ))}
-          <li>
-            <button className="theme-toggle" id="themeToggle" aria-label="Toggle theme" onClick={toggleTheme}>
-              {theme === "dark" ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="5" />
-                  <line x1="12" y1="1" x2="12" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="23" />
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                  <line x1="1" y1="12" x2="3" y2="12" />
-                  <line x1="21" y1="12" x2="23" y2="12" />
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-              )}
-            </button>
-          </li>
-        </ul>
+          </ul>
+          <button className="menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+            <Icon.Menu />
+          </button>
+        </div>
+      </nav>
+      <div className={`mobile-menu${menuOpen ? " open" : ""}`}>
+        <button className="mobile-close" onClick={() => setMenuOpen(false)}>
+          <Icon.X />
+        </button>
+        {links.map((l) => (
+          <a key={l.id} onClick={() => scrollTo(l.id)}>{l.label}</a>
+        ))}
+        <a onClick={() => scrollTo("contact")} style={{ color: "var(--gold)" }}>Get a Quote →</a>
       </div>
-    </nav>
+    </>
   );
 }
 
+// ── HERO ─────────────────────────────────────────────────────────────────────
 function Hero() {
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
-  };
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section id="home" className="hero">
-      <div className="hero-content">
-        <h1 className="hero-title">Masterful House &amp; Business work<br />Built to Last</h1>
-        <p className="hero-subtitle">Custom furniture, House Renovation and woodwork crafted with precision and passion. Where tradition meets modern excellence.</p>
-        <div className="hero-buttons">
-          <a href="#gallery" className="btn btn-primary" onClick={(e) => { e.preventDefault(); scrollTo("gallery"); }}>View Our Work</a>
-          <a href="#contact" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>Contact Us</a>
+    <section className="hero" id="home">
+      <div className="hero-bg" />
+      <div className="hero-glow" />
+      <div className="container">
+        <div className="hero-text">
+          <div className="hero-badge fade-up">
+            <span className="dot" />
+            Gujarat's #1 Home Solutions Provider
+          </div>
+          <h1 className="fade-up-2">
+            Your Home,<br />
+            <em>Perfectly Built</em><br />
+            — End to End
+          </h1>
+          <p className="hero-desc fade-up-3">
+            From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 15+ years of trusted craftsmanship.
+          </p>
+          <div className="hero-actions fade-up-3">
+            <button className="btn-primary" onClick={() => scrollTo("contact")}>
+              Get Free Quote <Icon.Arrow />
+            </button>
+            <button className="btn-outline" onClick={() => scrollTo("gallery")}>
+              View Our Work
+            </button>
+          </div>
+          <div className="hero-stats fade-up-3">
+            <div className="hero-stat"><strong>15+</strong><span>Years Experience</span></div>
+            <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
+            <div className="hero-stat"><strong>98%</strong><span>Satisfaction Rate</span></div>
+          </div>
+        </div>
+        <div className="hero-visual">
+          <div className="hero-grid">
+            <div className="hero-img-card">
+              <img src="/room-kitchen.png" alt="Modern kitchen renovation" />
+            </div>
+            <div className="hero-img-card">
+              <img src="/room-bathroom.png" alt="Luxury bathroom" />
+            </div>
+            <div className="hero-img-card">
+              <img src="/room-living.png" alt="Living room" />
+            </div>
+            <div className="hero-img-card">
+              <img src="/room-office.png" alt="Home office" />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="hero-overlay" />
     </section>
   );
 }
 
+// ── SERVICES ─────────────────────────────────────────────────────────────────
+function Services() {
+  return (
+    <section className="section section-alt" id="services">
+      <div className="container">
+        <div className="section-head">
+          <div className="section-label">What We Do</div>
+          <h2 className="section-title">All Home Services,<br />One Trusted Team</h2>
+          <p className="section-sub">
+            We handle every trade in-house — no subcontracting, no surprises. Whatever your home needs, we've got it covered.
+          </p>
+        </div>
+        <div className="services-grid">
+          {SERVICES.map((s) => (
+            <div className="service-card" key={s.title}>
+              <div className="service-icon" style={{ color: s.color }}>
+                {s.icon}
+              </div>
+              <div>
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </div>
+              <div className="service-tags">
+                {s.tags.map((t) => <span className="tag" key={t}>{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── GALLERY ───────────────────────────────────────────────────────────────────
 function Gallery() {
-  const [current, setCurrent] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const startAuto = useCallback(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrent((c) => (c + 1) % slides.length);
-    }, 5000);
-  }, []);
-
-  const stopAuto = useCallback(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-  }, []);
-
-  useEffect(() => {
-    startAuto();
-    return () => stopAuto();
-  }, [startAuto, stopAuto]);
-
-  const goTo = (i: number) => {
-    setCurrent(i);
-    stopAuto();
-    startAuto();
-  };
-
-  const prev = () => goTo((current - 1 + slides.length) % slides.length);
-  const next = () => goTo((current + 1) % slides.length);
-
-  // Touch support
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
+  const [active, setActive] = useState("All");
+  const filtered = active === "All" ? GALLERY : GALLERY.filter((g) => g.cat === active);
 
   return (
-    <section id="gallery" className="gallery-section">
+    <section className="section" id="gallery">
       <div className="container">
-        <h2 className="section-title">Our Work</h2>
-        <p className="section-subtitle">Each piece tells a story of dedication, skill, and timeless beauty</p>
-        <div
-          className="carousel-container"
-          onMouseEnter={stopAuto}
-          onMouseLeave={startAuto}
-          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; stopAuto(); }}
-          onTouchEnd={(e) => {
-            touchEndX.current = e.changedTouches[0].clientX;
-            const diff = touchEndX.current - touchStartX.current;
-            if (Math.abs(diff) > 50) diff > 0 ? prev() : next();
-            else startAuto();
-          }}
-        >
-          <div className="carousel-wrapper">
-            <div
-              className="carousel-track"
-              style={{ transform: `translate3d(${-current * 100}%, 0, 0)` }}
+        <div className="section-head">
+          <div className="section-label">Portfolio</div>
+          <h2 className="section-title">Our Work Speaks<br />For Itself</h2>
+        </div>
+        <div className="gallery-filters">
+          {FILTERS.map((f) => (
+            <button
+              key={f}
+              className={`filter-btn${active === f ? " active" : ""}`}
+              onClick={() => setActive(f)}
             >
-              {slides.map((slide, i) => (
-                <div className="carousel-slide" key={i}>
-                  <div className="slide-image" style={{ backgroundImage: `url('${slide.image}')` }} />
-                  <div className="slide-overlay">
-                    <h3>{slide.title}</h3>
-                    <p>{slide.desc}</p>
+              {f}
+            </button>
+          ))}
+        </div>
+        <div className="gallery-grid">
+          {filtered.map((item, i) => (
+            <div className="gallery-card" key={item.src + i}>
+              <img src={item.src} alt={item.title} loading="lazy" />
+              <div className="gallery-overlay">
+                <span className="badge">{item.label}</span>
+                <h4>{item.title}</h4>
+                <p>Gujarat, India</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── PROCESS ───────────────────────────────────────────────────────────────────
+function Process() {
+  const steps = [
+    { num: "01", title: "Free Consultation", desc: "Tell us about your project. We visit your site and understand your vision." },
+    { num: "02", title: "Custom Quote", desc: "Receive a detailed, transparent quote with no hidden costs within 24 hours." },
+    { num: "03", title: "Skilled Execution", desc: "Our certified team gets to work using premium materials and proven methods." },
+    { num: "04", title: "Final Handover", desc: "We do a quality walkthrough with you and only sign off when you're delighted." },
+  ];
+  return (
+    <section className="section section-alt">
+      <div className="container">
+        <div className="section-head center">
+          <div className="section-label">How It Works</div>
+          <h2 className="section-title">Simple, Stress-Free Process</h2>
+          <p className="section-sub">We keep things straightforward so you can relax while we transform your space.</p>
+        </div>
+        <div className="process-grid">
+          {steps.map((s) => (
+            <div className="process-card" key={s.num}>
+              <div className="process-num">{s.num}</div>
+              <h4>{s.title}</h4>
+              <p>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── WHY US ────────────────────────────────────────────────────────────────────
+function WhyUs() {
+  const features = [
+    { icon: <Icon.Check />, title: "Licensed & Insured", desc: "All work is fully covered. We carry professional liability insurance on every project." },
+    { icon: <Icon.Check />, title: "On-Time Delivery", desc: "We commit to deadlines and deliver on schedule — always." },
+    { icon: <Icon.Check />, title: "Transparent Pricing", desc: "No surprise bills. The price we quote is the price you pay." },
+    { icon: <Icon.Check />, title: "2-Year Workmanship Warranty", desc: "We stand behind every nail, pipe, and wire we install." },
+  ];
+  return (
+    <section className="section" id="about">
+      <div className="container">
+        <div className="why-grid">
+          <div className="why-image">
+            <img src="/room-zen.png" alt="Our quality work" />
+          </div>
+          <div>
+            <div className="section-label">Why MMH</div>
+            <h2 className="section-title">Built on Trust,<br />Delivered with Pride</h2>
+            <p className="section-sub">
+              With over 15 years serving Gujarat homes and businesses, we've earned a reputation for quality, honesty, and excellence across every trade.
+            </p>
+            <div className="why-features">
+              {features.map((f) => (
+                <div className="why-feature" key={f.title}>
+                  <div className="why-icon">{f.icon}</div>
+                  <div>
+                    <h4>{f.title}</h4>
+                    <p>{f.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <button className="carousel-btn carousel-btn-prev" aria-label="Previous slide" onClick={prev}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-          <button className="carousel-btn carousel-btn-next" aria-label="Next slide" onClick={next}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
-          <div className="carousel-dots">
-            {slides.map((_, i) => (
-              <div key={i} className={`carousel-dot${i === current ? " active" : ""}`} onClick={() => goTo(i)} />
-            ))}
-          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function About() {
-  return (
-    <section id="about" className="about-section">
-      <div className="container">
-        <div className="about-content">
-          <h2 className="section-title">Build with Legacy and Excellence</h2>
-          <p className="about-description">
-            With years of dedicated experience, we transform raw materials into timeless pieces that blend functionality with artistry. Every project is approached with meticulous attention to detail, ensuring that each cut, joint, and finish meets our exacting standards.
-          </p>
-          <p className="about-description">
-            We believe in building relationships as strong as our furniture. Your vision becomes our mission, and we work closely with you to bring your ideas to life. From initial consultation to final installation, we're committed to exceeding expectations and delivering work that stands the test of time.
-          </p>
-          <div className="about-stats">
-            <div className="stat-item">
-              <div className="stat-number">15+</div>
-              <div className="stat-label">Years Experience</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">100+</div>
-              <div className="stat-label">Projects Completed</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">98%</div>
-              <div className="stat-label">Client Satisfaction</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Services() {
-  return (
-    <section id="services" className="services-section">
-      <div className="container">
-        <h2 className="section-title">Our Services</h2>
-        <p className="section-subtitle">Comprehensive woodworking solutions for your home and business</p>
-        <div className="services-grid">
-          <div className="service-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M3 9h18M9 3v18" />
-              </svg>
-            </div>
-            <h3>Custom Furniture</h3>
-            <p>Bespoke pieces designed to your exact specifications, from dining sets to bedroom collections.</p>
-          </div>
-          <div className="service-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M3 12h18M3 6h18M3 18h18" />
-                <rect x="2" y="3" width="20" height="18" rx="1" />
-              </svg>
-            </div>
-            <h3>Doors &amp; Cabinets</h3>
-            <p>Custom doors, kitchen cabinets, and storage solutions crafted for style and durability.</p>
-          </div>
-          <div className="service-card">
-            <div className="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
-              </svg>
-            </div>
-            <h3>Renovation Work</h3>
-            <p>Complete woodwork renovations, restorations, and remodeling services for existing spaces.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Trust() {
-  const items = [
-    {
-      title: "Quality Materials",
-      desc: "We source only the finest hardwoods and premium materials for lasting quality.",
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-        </svg>
-      ),
-    },
-    {
-      title: "Skilled Worker",
-      desc: "Experienced professionals with years of expertise delivering quality workmanship on every project.",
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
-        </svg>
-      ),
-    },
-    {
-      title: "On-Time Delivery",
-      desc: "We respect your time and deliver projects on schedule, every time.",
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" />
-        </svg>
-      ),
-    },
-    {
-      title: "Customer Trust",
-      desc: "Your satisfaction is our priority. We build lasting relationships through exceptional service.",
-      icon: (
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
-      ),
-    },
+// ── TESTIMONIALS ──────────────────────────────────────────────────────────────
+function Testimonials() {
+  const reviews = [
+    { text: "MMH renovated our entire kitchen and bathroom. The workmanship is outstanding — clean, precise, and exactly what we envisioned. Highly recommend!", author: "Priya S.", location: "Ahmedabad", initials: "PS" },
+    { text: "They handled all our electrical and plumbing in one go. Saved us so much hassle coordinating different contractors. Will use again!", author: "Rahul M.", location: "Surat", initials: "RM" },
+    { text: "The aluminium windows and doors they installed are perfect — tight seals, smooth operation. The team was professional and tidy throughout.", author: "Anjali K.", location: "Vadodara", initials: "AK" },
   ];
-
   return (
-    <section className="trust-section">
+    <section className="section section-dark">
       <div className="container">
-        <h2 className="section-title">Why Choose Us</h2>
-        <div className="trust-grid">
-          {items.map((item) => (
-            <div className="trust-item" key={item.title}>
-              <div className="trust-icon">{item.icon}</div>
-              <h3>{item.title}</h3>
-              <p>{item.desc}</p>
+        <div className="section-head center">
+          <div className="section-label" style={{ color: "var(--gold-light)" }}>Testimonials</div>
+          <h2 className="section-title">What Our Clients Say</h2>
+          <p className="section-sub">Real feedback from real homeowners across Gujarat.</p>
+        </div>
+        <div className="testimonials-grid">
+          {reviews.map((r) => (
+            <div className="testimonial-card" key={r.author}>
+              <div className="stars">★★★★★</div>
+              <blockquote>"{r.text}"</blockquote>
+              <div className="testimonial-author">
+                <div className="author-avatar">{r.initials}</div>
+                <div className="author-info">
+                  <strong>{r.author}</strong>
+                  <span>{r.location}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -351,184 +423,182 @@ function Trust() {
   );
 }
 
+// ── CONTACT ───────────────────────────────────────────────────────────────────
 function Contact() {
-  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
 
-    // @ts-ignore — EmailJS loaded via CDN in index.html
+    // @ts-ignore
     const emailjsLib = typeof emailjs !== "undefined" ? emailjs : null;
 
     if (!emailjsLib) {
-      console.error("EmailJS SDK not loaded — check CDN script in index.html");
+      console.error("EmailJS SDK not loaded");
       setStatus("error");
       return;
     }
 
-    const serviceId = "service_52v307t";
-    const templateId = "template_c3p4bfj";
-    const publicKey = "3mS1S_kRhAhUgWoiE";
-
     try {
-      emailjsLib.init(publicKey);
-      await emailjsLib.send(serviceId, templateId, {
+      emailjsLib.init("3mS1S_kRhAhUgWoiE");
+      await emailjsLib.send("service_52v307t", "template_c3p4bfj", {
         name: form.name,
         contact_number: form.phone || "Not provided",
-        message: form.message,
+        message: `Service: ${form.service}\n\n${form.message}`,
         time: new Date().toLocaleString(),
       });
       setStatus("sent");
-      setForm({ name: "", phone: "", message: "" });
-    } catch (error) {
-      console.error("EmailJS Error:", error);
+      setForm({ name: "", phone: "", email: "", service: "", message: "" });
+    } catch (err) {
+      console.error("EmailJS error:", err);
       setStatus("error");
     }
   };
 
   return (
-    <section id="contact" className="contact-section">
+    <section className="section section-alt" id="contact">
       <div className="container">
-        <h2 className="section-title">Get in Touch</h2>
-        <p className="section-subtitle">Let's discuss your next project</p>
-        <div className="contact-content">
+        <div className="contact-wrapper">
           <div className="contact-info">
-            <div className="contact-item">
-              <div className="contact-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
+            <div className="section-label">Contact Us</div>
+            <h2 className="section-title">Let's Build Something Great Together</h2>
+            <p>Ready to transform your space? Get in touch for a free consultation and quote. We'll respond within 24 hours.</p>
+            <div className="contact-details">
+              <div className="contact-item">
+                <div className="contact-item-icon"><Icon.Mail /></div>
+                <div>
+                  <strong>Email Us</strong>
+                  <span>infocontrator@gmail.com</span>
+                </div>
               </div>
-              <div>
-                <h4>Email</h4>
-                <p>infocontrator@gmail.com</p>
+              <div className="contact-item">
+                <div className="contact-item-icon"><Icon.Pin /></div>
+                <div>
+                  <strong>Location</strong>
+                  <span>Gujarat, India — Serving all major cities</span>
+                </div>
               </div>
-            </div>
-            <div className="contact-item">
-              <div className="contact-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                  <circle cx="12" cy="10" r="3" />
-                </svg>
-              </div>
-              <div>
-                <h4>Location</h4>
-                <p>Gujarat, India</p>
+              <div className="contact-item">
+                <div className="contact-item-icon"><Icon.Phone /></div>
+                <div>
+                  <strong>Call / WhatsApp</strong>
+                  <span>Available Mon–Sat, 8am–7pm</span>
+                </div>
               </div>
             </div>
           </div>
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="Your Name"
-                required
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="tel"
-                placeholder="Your Phone"
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              />
-            </div>
-            <div className="form-group">
-              <textarea
-                rows={5}
-                placeholder="Tell us about your project"
-                required
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-              />
-            </div>
-            {status === "sent" && (
-              <p style={{ color: "var(--color-highlight-golden)", marginBottom: "1rem" }}>
-                Thank you! Your message has been sent.
-              </p>
-            )}
-            {status === "error" && (
-              <p style={{ color: "#e57373", marginBottom: "1rem" }}>
-                Something went wrong. Please try again.
-              </p>
-            )}
-            <button type="submit" className="btn btn-primary" disabled={status === "sending"}>
-              {status === "sending" ? "Sending..." : "Send Message"}
-            </button>
-          </form>
+          <div className="contact-form-card">
+            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: "1.2rem", marginBottom: "1.5rem", color: "var(--navy)" }}>
+              Request a Free Quote
+            </h3>
+            <form onSubmit={handleSubmit}>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Full Name *</label>
+                  <input type="text" placeholder="Your name" required value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
+                </div>
+                <div className="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" placeholder="+91 00000 00000" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+                </div>
+              </div>
+              <div className="form-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="your@email.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} />
+              </div>
+              <div className="form-group">
+                <label>Service Needed *</label>
+                <select required value={form.service} onChange={e => setForm({...form, service: e.target.value})}>
+                  <option value="">Select a service...</option>
+                  <option>Carpentry & Woodwork</option>
+                  <option>Plumbing</option>
+                  <option>Electrical</option>
+                  <option>Full Home Renovation</option>
+                  <option>Aluminium Work</option>
+                  <option>Painting & Finishing</option>
+                  <option>Multiple Services</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Tell Us About Your Project *</label>
+                <textarea placeholder="Describe your project, room size, timeline..." required value={form.message} onChange={e => setForm({...form, message: e.target.value})} />
+              </div>
+              {status === "sent" && (
+                <p style={{ color: "#10B981", fontSize: "0.9rem", marginBottom: "1rem", fontWeight: 600 }}>
+                  ✓ Message sent! We'll reach out within 24 hours.
+                </p>
+              )}
+              {status === "error" && (
+                <p style={{ color: "#EF4444", fontSize: "0.9rem", marginBottom: "1rem" }}>
+                  Something went wrong. Please email us directly at infocontrator@gmail.com
+                </p>
+              )}
+              <button type="submit" className="form-submit" disabled={status === "sending"}>
+                {status === "sending" ? "Sending..." : "Send Request →"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
+// ── FOOTER ────────────────────────────────────────────────────────────────────
 function Footer() {
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   return (
     <footer className="footer">
       <div className="container">
-        <p>&copy; 2026 MMH Contrator. All rights reserved.</p>
-        <p>Made by: Shashwattech</p>
+        <div className="footer-top">
+          <div>
+            <div className="footer-brand">MMH <span>Contractor</span></div>
+            <p className="footer-desc">
+              Gujarat's complete home solutions provider — carpentry, plumbing, electrical, renovation, aluminium & more. One team for everything your home needs.
+            </p>
+          </div>
+          <div className="footer-col">
+            <h5>Services</h5>
+            <ul>
+              {["Carpentry & Woodwork","Plumbing","Electrical","Full Renovation","Aluminium Work","Painting"].map(s => (
+                <li key={s}><a onClick={() => scrollTo("services")}>{s}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h5>Company</h5>
+            <ul>
+              <li><a onClick={() => scrollTo("about")}>About Us</a></li>
+              <li><a onClick={() => scrollTo("gallery")}>Our Work</a></li>
+              <li><a onClick={() => scrollTo("contact")}>Get a Quote</a></li>
+              <li><a>Privacy Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>© 2026 MMH Contractor. All rights reserved.</p>
+          <p>Made by Shashwattech · Gujarat, India</p>
+        </div>
       </div>
     </footer>
   );
 }
 
+// ── APP ───────────────────────────────────────────────────────────────────────
 export default function App() {
-  const [theme, setTheme] = useState<string>(() => localStorage.getItem("theme") || "dark");
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-
-  // Navbar scroll shadow
-  useEffect(() => {
-    const navbar = document.querySelector(".navbar") as HTMLElement;
-    const handleScroll = () => {
-      if (window.pageYOffset > 100) {
-        navbar.style.boxShadow = "0 2px 30px rgba(0,0,0,0.9)";
-      } else {
-        navbar.style.boxShadow = "0 2px 20px rgba(0,0,0,0.8)";
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Intersection observer for fade-in
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("fade-in");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -100px 0px" }
-    );
-    document.querySelectorAll("section").forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div data-theme={theme}>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+    <>
+      <Navbar />
       <Hero />
-      <Gallery />
-      <About />
       <Services />
-      <Trust />
+      <Gallery />
+      <Process />
+      <WhyUs />
+      <Testimonials />
       <Contact />
       <Footer />
-    </div>
+    </>
   );
 }
