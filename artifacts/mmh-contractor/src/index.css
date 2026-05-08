@@ -189,12 +189,26 @@ img { max-width: 100%; height: auto; display: block; }
   margin-top: auto;
 }
 
-.hero-cta-row {
-  display: flex; gap: 0.75rem; flex-wrap: wrap;
-  margin-top: 1.25rem;
-}
-
 .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+/* scroll-down explore button */
+.hero-scroll-btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  background: none; border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.6); cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.7rem 1.4rem; border-radius: 50px;
+  margin-top: 1.5rem;
+  transition: var(--transition);
+}
+.hero-scroll-btn svg { animation: bounceDown 1.8s ease-in-out infinite; }
+.hero-scroll-btn:hover { border-color: var(--gold); color: var(--gold); }
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
 
 /* ── PROOF STRIP — between hero and services ── */
 .proof-strip {
