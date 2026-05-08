@@ -191,23 +191,31 @@ img { max-width: 100%; height: auto; display: block; }
 
 .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-/* scroll-down explore button */
+/* vertical "EXPLORE ↓" pinned to left edge */
 .hero-scroll-btn {
-  display: inline-flex; align-items: center; gap: 0.55rem;
-  background: none; border: 1px solid rgba(255,255,255,0.18);
-  color: rgba(255,255,255,0.6); cursor: pointer;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.8rem; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 0.7rem 1.4rem; border-radius: 50px;
-  margin-top: 1.5rem;
-  transition: var(--transition);
+  position: absolute;
+  left: 1.8rem; bottom: 4rem;
+  z-index: 5;
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: rgba(255,255,255,0.35);
+  transition: color 0.3s;
 }
-.hero-scroll-btn svg { animation: bounceDown 1.8s ease-in-out infinite; }
-.hero-scroll-btn:hover { border-color: var(--gold); color: var(--gold); }
+.hero-scroll-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+}
+.hero-scroll-btn svg {
+  animation: bounceDown 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.hero-scroll-btn:hover { color: var(--gold); }
 @keyframes bounceDown {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
+  50%       { transform: translateY(5px); }
 }
 
 /* ── PROOF STRIP — between hero and services ── */

@@ -205,6 +205,12 @@ function Hero() {
       {/* radial edge vignette */}
       <div className="hero-vignette" />
 
+      {/* vertical explore — left side */}
+      <button className="hero-scroll-btn fade-up-3" onClick={() => scrollTo("services")}>
+        <span className="hero-scroll-label">Explore</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+      </button>
+
       <div className="container">
         {/* eyebrow — top left */}
         <span className="hero-eyebrow fade-up">Design the Future of Living</span>
@@ -217,10 +223,6 @@ function Hero() {
         {/* bottom section — in front of room */}
         <div className="hero-bottom-wrap">
           <div className="hero-sub-word fade-up-2">Built.</div>
-          <button className="hero-scroll-btn fade-up-3" onClick={() => scrollTo("services")}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-            Explore
-          </button>
         </div>
       </div>
 
