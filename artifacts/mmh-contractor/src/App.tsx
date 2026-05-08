@@ -362,21 +362,24 @@ function Contact() {
     // @ts-ignore — EmailJS loaded via CDN in index.html
     const emailjsLib = typeof emailjs !== "undefined" ? emailjs : null;
 
+    if (!emailjsLib) {
+      console.error("EmailJS SDK not loaded — check CDN script in index.html");
+      setStatus("error");
+      return;
+    }
+
     const serviceId = "service_52v307t";
     const templateId = "template_c3p4bfj";
     const publicKey = "3mS1S_kRhAhUgWoiE";
 
     try {
-      if (emailjsLib) {
-        emailjsLib.init(publicKey);
-        await emailjsLib.send(serviceId, templateId, {
-          name: form.name,
-          contact_number: form.phone || "Not provided",
-          message: form.message,
-          time: new Date().toLocaleString(),
-        });
-      }
-      // Show success whether or not EmailJS is reachable
+      emailjsLib.init(publicKey);
+      await emailjsLib.send(serviceId, templateId, {
+        name: form.name,
+        contact_number: form.phone || "Not provided",
+        message: form.message,
+        time: new Date().toLocaleString(),
+      });
       setStatus("sent");
       setForm({ name: "", phone: "", message: "" });
     } catch (error) {
