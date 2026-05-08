@@ -139,57 +139,50 @@ img { max-width: 100%; height: auto; display: block; }
       transparent 40%, rgba(8,10,16,0.7) 75%, rgba(8,10,16,0.97) 100%);
 }
 
-/* main container — flex column, full height */
-.hero .container {
-  position: relative; z-index: 2; width: 100%;
-  display: flex; flex-direction: column;
-  min-height: 100vh;
-  padding-top: 7rem; padding-bottom: 5rem;
-}
-
-/* ── eyebrow ── */
+/* eyebrow — absolute top left */
 .hero-eyebrow {
+  position: absolute;
+  top: 7rem; left: 1.5rem;
   font-size: 0.72rem; font-weight: 600;
   color: rgba(255,255,255,0.3);
   letter-spacing: 0.25em; text-transform: uppercase;
-  display: block; margin-bottom: auto;
+  z-index: 5;
 }
 
-/* ── giant headline — BEHIND the room ── */
+/* ── "PERFECTLY" — bottom edge sits at vertical 50%, BEHIND room ── */
 .hero-heading-wrap {
-  position: relative; z-index: 1;
-  margin-top: auto; margin-bottom: auto;
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-100%);
+  z-index: 1;
   text-align: center;
-  /* allow text to bleed outside container */
-  margin-left: -1.5rem; margin-right: -1.5rem;
 }
 
 .hero h1 {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15vw;
-  font-weight: 900; line-height: 0.88;
+  font-weight: 900; line-height: 1;
   color: #fff; letter-spacing: -0.04em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* ── "BUILT." — gold, in front of room ── */
+/* ── "BUILT." — top edge sits at vertical 50%, IN FRONT of room ── */
+.hero-bottom-wrap {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  z-index: 4;
+}
+
 .hero-sub-word {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 8.5vw; font-weight: 900;
   color: var(--gold); letter-spacing: -0.03em;
   text-transform: uppercase;
-  display: block; text-align: left;
+  display: block;
   line-height: 1;
-}
-
-/* ── "BUILT." — sits just below "PERFECTLY", in front of image ── */
-.hero-bottom-wrap {
-  position: absolute;
-  left: 0; right: 0;
-  top: calc(50% + 9vw);
-  z-index: 4;
-  padding: 0 var(--container-pad, 1.5rem);
 }
 
 .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }

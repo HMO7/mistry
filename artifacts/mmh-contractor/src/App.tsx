@@ -211,19 +211,17 @@ function Hero() {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
       </button>
 
-      <div className="container">
-        {/* eyebrow — top left */}
-        <span className="hero-eyebrow fade-up">Design the Future of Living</span>
+      {/* eyebrow — top left, absolute */}
+      <span className="hero-eyebrow fade-up">Design the Future of Living</span>
 
-        {/* giant "PERFECTLY" — sits BEHIND the room */}
-        <div className="hero-heading-wrap">
-          <h1 className="fade-up-2">Perfectly</h1>
-        </div>
+      {/* "PERFECTLY" — bottom edge anchored at 50%, BEHIND the room (z-index 1) */}
+      <div className="hero-heading-wrap">
+        <h1 className="fade-up-2">Perfectly</h1>
+      </div>
 
-        {/* bottom section — in front of room */}
-        <div className="hero-bottom-wrap">
-          <div className="hero-sub-word fade-up-2">Built.</div>
-        </div>
+      {/* "BUILT." — top edge anchored at 50%, IN FRONT of room (z-index 4) */}
+      <div className="hero-bottom-wrap">
+        <div className="hero-sub-word fade-up-2">Built.</div>
       </div>
 
     </section>
