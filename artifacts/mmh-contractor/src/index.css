@@ -183,10 +183,13 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 1;
 }
 
-/* ── bottom bar — in front of room ── */
+/* ── "BUILT." — absolutely pinned over bottom of room image ── */
 .hero-bottom-wrap {
-  position: relative; z-index: 4;
-  margin-top: auto;
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 16%;
+  z-index: 4;
+  padding: 0 var(--container-pad, 1.5rem);
 }
 
 .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
