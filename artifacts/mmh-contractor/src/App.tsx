@@ -195,51 +195,37 @@ function Hero() {
   return (
     <section className="hero" id="home">
       <div className="hero-bg" />
-      <div className="hero-glow" />
+      <div className="hero-overlay" />
       <div className="container">
-        <div className="hero-text">
-          <div className="hero-badge fade-up">
-            <span className="dot" />
-            Gujarat's #1 Home Solutions Provider
+        <span className="hero-eyebrow fade-up">Your Complete Home Solution</span>
+        <h1 className="fade-up-2">
+          Perfectly<br />
+          <span className="gold-word">Built.</span>
+        </h1>
+        <div className="hero-bottom fade-up-3">
+          <div>
+            <p className="hero-desc">
+              From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
+            </p>
+            <div className="hero-actions" style={{ marginTop: "1.5rem" }}>
+              <button className="btn-primary" onClick={() => scrollTo("contact")}>
+                Get Free Quote <Icon.Arrow />
+              </button>
+              <button className="btn-outline" onClick={() => scrollTo("gallery")}>
+                View Our Work
+              </button>
+            </div>
           </div>
-          <h1 className="fade-up-2">
-            Your Home,<br />
-            <em>Perfectly Built</em><br />
-            — End to End
-          </h1>
-          <p className="hero-desc fade-up-3">
-            From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
-          </p>
-          <div className="hero-actions fade-up-3">
-            <button className="btn-primary" onClick={() => scrollTo("contact")}>
-              Get Free Quote <Icon.Arrow />
-            </button>
-            <button className="btn-outline" onClick={() => scrollTo("gallery")}>
-              View Our Work
-            </button>
-          </div>
-          <div className="hero-stats fade-up-3">
+          <div className="hero-stats">
             <div className="hero-stat"><strong>30+</strong><span>Years Experience</span></div>
             <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
-            <div className="hero-stat"><strong>98%</strong><span>Satisfaction Rate</span></div>
+            <div className="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
           </div>
         </div>
-        <div className="hero-visual">
-          <div className="hero-grid">
-            <div className="hero-img-card">
-              <img src="/room-kitchen.png" alt="Modern kitchen renovation" />
-            </div>
-            <div className="hero-img-card">
-              <img src="/room-bathroom.png" alt="Luxury bathroom" />
-            </div>
-            <div className="hero-img-card">
-              <img src="/room-living.png" alt="Living room" />
-            </div>
-            <div className="hero-img-card">
-              <img src="/room-office.png" alt="Home office" />
-            </div>
-          </div>
-        </div>
+      </div>
+      <div className="hero-scroll">
+        <span>Scroll</span>
+        <div className="scroll-line" />
       </div>
     </section>
   );
