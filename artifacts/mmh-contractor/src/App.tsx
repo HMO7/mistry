@@ -194,52 +194,62 @@ function Hero() {
 
   return (
     <section className="hero" id="home">
-      {/* floating room — black bg disappears via mix-blend-mode: lighten */}
+      {/* warm ambient glow */}
+      <div className="hero-glow" />
+
+      {/* 3D room — centered, in front of text, edges softly faded */}
       <div className="hero-room">
         <img src="/room-living.png" alt="Modern living room renovation" />
       </div>
-      {/* left vignette keeps text readable */}
+
+      {/* radial edge vignette */}
       <div className="hero-vignette" />
 
       <div className="container">
-        {/* heading layer — sits BEHIND the image */}
+        {/* eyebrow — top left */}
+        <span className="hero-eyebrow fade-up">Design the Future of Living</span>
+
+        {/* giant "PERFECTLY" — sits BEHIND the room */}
         <div className="hero-heading-wrap">
-          <span className="hero-eyebrow fade-up">Your Complete Home Solution</span>
-          <h1 className="fade-up-2">
-            Perfectly
-            <span className="gold-word">Built.</span>
-          </h1>
+          <h1 className="fade-up-2">Perfectly</h1>
         </div>
 
-        {/* bottom bar — sits IN FRONT of the image */}
+        {/* bottom section — in front of room */}
         <div className="hero-bottom-wrap">
+          <div className="hero-sub-word fade-up-2">Built.</div>
           <div className="hero-bottom fade-up-3">
             <div>
               <p className="hero-desc">
-                From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
+                Every home service under one roof — carpentry, plumbing, electrical, full renovation &amp; more. 30+ years of craftsmanship in Gujarat.
               </p>
               <div className="hero-actions">
                 <button className="btn-primary" onClick={() => scrollTo("contact")}>
                   Get Free Quote <Icon.Arrow />
                 </button>
                 <button className="btn-outline" onClick={() => scrollTo("gallery")}>
-                  View Our Work
+                  Explore Work
                 </button>
               </div>
             </div>
             <div className="hero-stats">
-              <div className="hero-stat"><strong>30+</strong><span>Years Experience</span></div>
+              <div className="hero-stat"><strong>30+</strong><span>Years</span></div>
               <div className="hero-stat-divider" />
-              <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
+              <div className="hero-stat"><strong>500+</strong><span>Projects</span></div>
               <div className="hero-stat-divider" />
               <div className="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
             </div>
           </div>
         </div>
       </div>
-      <div className="hero-scroll">
-        <span>Scroll</span>
-        <div className="scroll-line" />
+
+      {/* vertical brand text — right edge */}
+      <div className="hero-vertical">MMH Contractor · Gujarat, India</div>
+
+      {/* bottom dot indicators */}
+      <div className="hero-indicators">
+        <div className="hero-dot active" />
+        <div className="hero-dot" />
+        <div className="hero-dot" />
       </div>
     </section>
   );
