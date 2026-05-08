@@ -156,8 +156,7 @@ function Navbar() {
       <nav className={`navbar${scrolled ? " scrolled" : ""}`}>
         <div className="container">
           <a className="nav-logo">
-            <img src="/logo.svg" alt="MMH" />
-            MMH <span>Contractor</span>
+            <img src="/logo.svg" alt="MMH Contractor" />
           </a>
           <ul className="nav-links">
             {links.map((l) => (
@@ -209,7 +208,7 @@ function Hero() {
             — End to End
           </h1>
           <p className="hero-desc fade-up-3">
-            From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 15+ years of trusted craftsmanship.
+            From carpentry to plumbing, electrical to full renovations — MMH Contractor delivers every home service under one roof, with 30+ years of trusted craftsmanship.
           </p>
           <div className="hero-actions fade-up-3">
             <button className="btn-primary" onClick={() => scrollTo("contact")}>
@@ -220,7 +219,7 @@ function Hero() {
             </button>
           </div>
           <div className="hero-stats fade-up-3">
-            <div className="hero-stat"><strong>15+</strong><span>Years Experience</span></div>
+            <div className="hero-stat"><strong>30+</strong><span>Years Experience</span></div>
             <div className="hero-stat"><strong>500+</strong><span>Projects Done</span></div>
             <div className="hero-stat"><strong>98%</strong><span>Satisfaction Rate</span></div>
           </div>
