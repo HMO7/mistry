@@ -113,8 +113,8 @@ img { max-width: 100%; height: auto; display: block; }
 .hero-room {
   position: absolute;
   left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%; max-width: 680px;
+  transform: translate(-50%, 0%);
+  width: 52%; max-width: 700px;
   z-index: 3;
   mix-blend-mode: lighten;
   pointer-events: none;
