@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "MMH Contractor"
+version = "1.0.0"
+id = "artifacts/mmh-contractor"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19444
+
+[services.development]
+run = "pnpm --filter @workspace/mmh-contractor run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mmh-contractor", "run", "build" ]
+publicDir = "artifacts/mmh-contractor/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19444"
+BASE_PATH = "/"
