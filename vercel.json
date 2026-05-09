@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @workspace/mmh-contractor run build",
+  "outputDirectory": "artifacts/mmh-contractor/dist/public",
+  "installCommand": "pnpm install",
+  "framework": null
+}
