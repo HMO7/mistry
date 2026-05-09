@@ -1,7 +1,0 @@
-node_modules
-.next
-package.json
-next.config.js
-*.log
-.DS_Store
-
